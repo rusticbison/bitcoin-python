@@ -152,6 +152,14 @@ class BitcoinConnection(object):
         else:
             return self.proxy.getnewaddress(account)
 
+    #added getrawchangeaddress - @rusticbison
+    def getrawchangeaddress(self, account=None):
+        """
+        Returns a new bitcoin raw change address for properly handling change.
+
+        """
+        return self.proxy.getrawchangeaddress()
+
     def getaccountaddress(self, account):
         """
         Returns the current bitcoin address for receiving payments to an account.
@@ -324,6 +332,14 @@ class BitcoinConnection(object):
             keys that, if given, will be the only keys used to sign the transaction.
         """
         return dict(self.proxy.signrawtransaction(hexstring, previous_transactions, private_keys))
+
+    #added sendrawtransaction - @rusticbison
+    def sendrawtransaction(self, account=None):
+        """
+        Broadcasts a signed hex to network.
+
+        """
+        return self.proxy.sendrawtransaction()
 
     def decoderawtransaction(self, hexstring):
         """
@@ -644,3 +660,4 @@ class BitcoinConnection(object):
         :rtype: bool
         """
         return self.proxy.verifymessage(address, signature, message)
+
